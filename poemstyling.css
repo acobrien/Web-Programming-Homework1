@@ -1,0 +1,25 @@
+pre {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+    color: red;
+}
+pre.orangeRedClass {
+    color: orangered;
+}
+#darkOrangeId {
+    color: darkorange;
+}
+pre.darkOrangeExtra {
+    color: darkorange;
+}
+.orangeAnon {
+    color: orange;
+}
+pre strong {
+    font-size: 12px;
+    padding-top: 3px;
+    border-top: 1px dotted grey;
+}
+pre myCode {
+    color: black;
+}
