@@ -1,0 +1,128 @@
+<html>
+
+<head>
+
+<title>Radio Button Example</title>
+
+<style>
+    .ordersummary {
+        background-color:black;
+        color:white;
+        text-align:center;
+        padding:15px;
+        width:50%;
+        height:auto;
+    }
+
+    hr {
+        color:black;
+        border-width:medium;
+    }
+</style>
+<script type="text/javascript">
+
+	function DisplayOrderWithLabel() {
+		// 1. Get radio buttons array
+		//    Notice that we must use the "getElementsByName" because we have a group
+    	//    of radio buttons all with the same name. This is an array and we can
+    	//    drill down and see which one is checked, their values, etc.
+        var radEntree = document.getElementsByName("entreeChoice");
+		// 2. Loop over radio buttons
+	    var msg = "";
+	    for (i=0; i<radEntree.length; i++) {
+			// 2a. Get current radio button
+			var rad = radEntree[i];
+			// 2b. If checked, build message
+            if (rad.checked) {
+				// 2bi. Get value of radio button
+                msg += "rad.value=" + rad.value + ", \n";
+				// 2bii. Get text of associated label. Radio button has an array of labels, there is only 1 in our case.
+                msg += "rad.labels[0].innerHTML=" + rad.labels[0].innerText;
+		        break;
+		    }
+	    }
+		// 3. Display message
+	    document.getElementById("txaResult").value = msg
+	    return;
+    }
+ 
+// IGNORE the function below. Shows alternate technique.
+    function DisplayOrderWithText() {
+        var radE = document.getElementsByName("rad1");
+	    var msg = "";
+
+	    for (i=0; i<radE.length; i++) {
+            if (radE[i].checked) {
+                msg += "radE[i].value                =" + radE[i].value + ", \n";
+                msg += "radE[i].nextSibling.innerHTML=" + radE[i].nextSibling.data;
+		        break;
+		    }
+	    }
+	    document.getElementById("txaResult").value = msg
+	    return;
+    }
+ 
+// IGNORE the function below. Shows alternate technique.	
+    function DisplayOrderWithSpan() {
+        var radE = document.getElementsByName("rad2");
+	    var msg = "";
+
+	    for (i=0; i<radE.length; i++) {
+            if (radE[i].checked) {
+                msg += "radE[i].value                =" + radE[i].value + ", \n";
+                msg += "radE[i].nextSibling.innerHTML=" + radE[i].nextSibling.innerHTML;
+		        break;
+		    }
+	    }
+	    document.getElementById("txaResult").value = msg
+	    return;
+    }
+
+</script>
+
+</head>
+
+<body>
+	<h2>Radio Button Example</h2>
+	<p>This example shows how to get the selected radio button's value, and the text
+		with the associated label.
+	</p>
+
+	<form id="FoodForm">
+		<p>
+			<input type="radio" id="e1" name="entreeChoice" value="9.50" >
+			<label for="e1">Pad Thai($9.50)</label><br>
+			<input type="radio"  id="e2" name="entreeChoice" value="10.50">
+			<label for="e2">Red Curry ($10.50)</label><br>
+		</p>
+		<p>
+			<input id="btnCalc" type="button" value="Display Order" onclick="DisplayOrderWithLabel()">
+		</p>
+		<p><textarea id="txaResult" rows="15" cols="120"></textarea></p>
+
+		<h2>Ignore below - alternate approaches</h2>
+		<p>
+			The first set of radio buttons has simple text after radio button, 
+			the second surrounds the text in span tages.
+		</p>
+		
+		<p>
+			<input type="radio" name="rad1" value="4.50" id="e1">
+			Tom Yum Soup($4.50)<br>
+			<input type="radio" name="rad1" value="12.99" id="e2">
+			Tom Kha Gai ($12.99)<br>
+		</p>
+
+		<p>
+			<input type="radio" name="rad2" value="7.50"><span>Pad Thai($7.50)</span><br>
+			<input type="radio" name="rad2" value="8.50"><span>Red Curry ($8.50)</span><br>
+		</p>
+
+		<p>
+			<input id="btnCalc" type="button" value="Display Order With Text" onclick="DisplayOrderWithText()">
+			<input id="btnCalc" type="button" value="Display Order With Span" onclick="DisplayOrderWithSpan()">
+		</p>
+	</form>
+</body>
+
+</html>

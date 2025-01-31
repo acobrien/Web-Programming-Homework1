@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JavaScript Example</title>
+</head>
+<body>
+<h1>Book Order Form</h1>
+<table>
+  <tr>
+    <td>
+      <label for="books"><b>
+        Select Books<br>
+        and/or Supply<br>
+        Book title and<br>
+        price<br></b></label>
+    </td>
+    <td><form>
+      <select id="books" name="books" size="4" multiple>
+        <option value="20.00">Walden Pond</option>
+        <option value="15.00">Zen and the Art...</option>
+        <option value="8.00">The Razor's Edge</option>
+        <option value="15.00">The Poisonwood Bible</option>
+        <option value="10.00">Withering Heights</option>
+      </select>
+    </form></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td><form>
+      <label for="userBook">Book</label>
+      <input type="text" id="userBook" name="userBook">
+      <label for="userBookPrice">Price</label>
+      <input type="text" id="userBookPrice" name="userBookPrice">
+    </form></td>
+  </tr>
+  <tr>
+    <td><b>Options</b></td>
+    <td><form>
+      <input type="checkbox" id="rushOrder" name="extraOption" value="10.00">
+      <label for="rushOrder">Rush Order</label>
+      <input type="checkbox" id="giftWrap" name="extraOption" value="5.00">
+      <label for="giftWrap">Gift Wrap</label>
+    </form></td>
+  </tr>
+  <tr>
+    <td><b>Customer Type</b></td>
+    <td><form>
+      <input type="radio" id="general" name="customerType" value="0.00" checked>
+      <label for="general">General</label>
+      <input type="radio" id="government" name="customerType" value="0.10">
+      <label for="government">Government</label>
+    </form></td>
+  </tr>
+  <tr>
+    <td><b><label for="destinations">Ship To</label></b></td>
+    <td><form>
+      <select name="destinations" id="destinations">
+        <option value="5.00">NY</option>
+        <option value="7.00">CA</option>
+        <option value="3.00">SC</option>
+      </select>
+    </form></td>
+  </tr>
+  <tr>
+    <td>
+      <input type="button" id="submit" name="submit" value="Purchase"
+      onclick="processForm()">
+    </td>
+    <td>
+      <label for="receipt">Purchase Details:</label>
+      <textarea id="receipt" name="receipt" cols="30" rows="20"></textarea>
+    </td>
+  </tr>
+</table>
+<script>
+  function processForm() {
+    let total = 0;
+    let msg = "Order\n----------------------";
+
+    let bookArray = document.getElementById("books");
+    let selectedBooks = bookArray.selectedOptions;
+    for (let i = 0; i < selectedBooks.length; i++) {
+        total += parseFloat(selectedBooks[i].value);
+        msg += "\n$" + selectedBooks[i].value + " – " + selectedBooks[i].innerText;
+    }
+
+    let userBook = document.getElementById("userBook");
+    let userBookPrice = document.getElementById("userBookPrice");
+    if (userBook.value !== "" && userBookPrice.value !== "") {
+      total += parseFloat(userBookPrice.value);
+      msg += "\n$" + (parseFloat(userBookPrice.value)).toFixed(2) + " – " + userBook.value + " (user specified)";
+    }
+
+    let customerTypes = document.getElementsByName("customerType");
+    let isGovernment = customerTypes[1].checked;
+    if (isGovernment) {
+      msg += "\nGovernment Customer";
+    }
+    else {
+      msg += "\nGeneral Customer";
+    }
+
+    let extraOptions = document.getElementsByName("extraOption");
+    if (extraOptions[0].checked) {
+      total += parseFloat(extraOptions[0].value);
+      msg += "\n$" + extraOptions[0].value + " – Rush order";
+    }
+    if (extraOptions[1].checked) {
+      total += parseFloat(extraOptions[1].value);
+      msg += "\n$" + extraOptions[1].value + " – Gift wrap";
+    }
+
+    let destinations = document.getElementById("destinations");
+    total += parseFloat(destinations.value);
+    if (destinations.selectedIndex === 0) {
+      msg += "\n$5.00 – Ship to NY";
+    }
+    else if (destinations.selectedIndex === 1) {
+      msg += "\n$7.00 – Ship to CA";
+    }
+    else if (destinations.selectedIndex === 2) {
+      msg += "\n$3.00 – Ship to SC";
+    }
+
+    msg += "\n----------------------";
+    if (isGovernment) {
+      msg += "\nSub Total: $" + total.toFixed(2);
+        msg += "\nDiscount (10%): $" + (total * parseFloat(document.getElementById("government").value)).toFixed(2);
+      total *= 1.0 - parseFloat(document.getElementById("government").value);
+    }
+    msg += "\nTotal: $" + total.toFixed(2);
+    document.getElementById("receipt").innerHTML = msg;
+  }
+</script>
+</body>
+</html>

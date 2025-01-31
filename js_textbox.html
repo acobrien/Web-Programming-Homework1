@@ -1,0 +1,140 @@
+<html>
+
+<head>
+
+<title>TextBox Example</title>
+
+    <style>
+        hr {
+            color: black;
+            border-width: medium;
+        }
+    	#ddIntRate {
+			height: 73px;
+			width: 105px;
+		}
+    	#divResult {
+    		border:2px solid #0066FF; 
+            display:inline-block; 
+            margin-bottom:10px;
+    	}
+    </style>
+
+<script type="text/javascript">
+    // Global variable to store all the nums that have been entered.
+    var numMessages = [];
+
+    window.onload = function() {
+        reset2();
+    };    
+
+    // Calculates square of num entered and displays
+	function calcSquare() {
+        // 1. Get input
+		var curNum = parseFloat(document.getElementById("txtNum").value);
+        // 2. Calculate square
+		var numSqd = Math.pow(curNum, 2);
+        // 3. Build message
+		var msg = curNum + "^2=" + numSqd.toFixed(2); // Build display string.
+        // 4. Save message
+        numMessages.push(msg);
+
+        // 5. Display message
+       // alert("msg=" + msg);
+        console.log("msg=" + msg);
+        // Display in textarea, can use value or innerHTML
+        document.getElementById("txaResult").value = msg;
+        //document.getElementById("txaResult").innerHTML = msg;
+        // Display in paragraph
+        document.getElementById("pResult").innerText = msg;
+        // Display in div
+        document.getElementById("divResult").innerText = msg;
+        // Display in table
+        document.getElementById("tdResult1").innerHTML = "<b>" + curNum.toFixed(2) + "</b>";
+        document.getElementById("tdResult2").innerText = numSqd.toFixed(2);
+// 6. Reset form, set focus back to textbox.
+        var txtNum = document.getElementById("txtNum");
+        setFocus(txtNum);
+        return;
+    }
+
+    // Displays all the nums that have been entered and their squares
+    function showAllNums() {
+        var msg = "";
+        // 1. Loop over array of messages, nums & combine
+        for (i=0; i<numMessages.length; i++) {
+            msg += (i + 1) + ". " + numMessages[i] + "\n";
+        }
+        // 2. Display output
+        var txaResult = document.getElementById("txaResult");
+		txaResult.value = msg;
+        document.getElementById("txaResult").value = msg;
+		// 3. Reset form
+        clear();
+        var txtNum = document.getElementById("txtNum");
+		setFocus(txtNum);
+    }
+
+   	// Forgets the numbers that have been typed in
+    function reset2() { 
+        // 1. Forget the number messages
+        numMessages = [];
+		// 2. Reset form
+        clear();
+		var txtNum = document.getElementById("txaResult");
+		txaResult.value = "";
+        var txtNum = document.getElementById("txtNum");
+        txtNum.value = 0;
+		setFocus(txtNum);
+    }
+
+    // This function clears all the display areas except the text area
+	function clear() {
+		document.getElementById("pResult").innerHTML = "";
+		document.getElementById("divResult").innerHTML = "";
+		document.getElementById("tdResult1").innerHTML = "";
+		document.getElementById("tdResult2").innerHTML = "";
+	}
+
+    //  This function sets the focus to the "control" parameter and selects any text in it. 
+    function setFocus(control) {
+        control.focus();
+        control.select();
+    }
+</script>
+</head>
+
+<body>
+    <h2>JS TextBox Example</h2>
+    <p>This example illustrates how to access a TextBox and to store values</p>
+    <hr>
+    <form id="entryForm">
+	    <p>
+            <label for="txtNum">Type in a number</label>
+    		<input type="text" id="txtNum" size="7" value="0">
+	    </p>
+    	<p>
+            <input id="btnCalc" type="button" value="Calculate Square" onclick="calcSquare()"/>
+            <input id="btnShowAll" type="button" value="Show All" onclick="showAllNums()" />
+            <input id="btnReset" type="button" value="Reset" onclick="reset2()" />
+        </p>
+	
+        <!--Display areas-->
+        <p><textarea id="txaResult" rows="4" cols="60"></textarea></p>
+        <p id="pResult"></p>
+        <div id="divResult"></div>
+        <table border="1">
+            <tr>
+                <td>Num</td>
+                <td>Num^2</td>
+            </tr>
+            <tr>
+                <td id="tdResult1"></td>
+                <td id="tdResult2"></td>
+            </tr>
+        </table>
+    </form>
+
+</body>
+
+</html>
