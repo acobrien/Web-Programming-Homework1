@@ -21,7 +21,7 @@
         <option value="15.00">Zen and the Art...</option>
         <option value="8.00">The Razor's Edge</option>
         <option value="15.00">The Poisonwood Bible</option>
-        <option value="10.00">Withering Heights</option>
+        <option value="10.00">Wuthering Heights</option>
       </select>
     </form></td>
   </tr>
@@ -126,7 +126,7 @@
     msg += "\n----------------------";
     if (isGovernment) {
       msg += "\nSub Total: $" + total.toFixed(2);
-        msg += "\nDiscount (10%): $" + (total * parseFloat(document.getElementById("government").value)).toFixed(2);
+      msg += "\nDiscount (10%): $" + (total * parseFloat(document.getElementById("government").value)).toFixed(2);
       total *= 1.0 - parseFloat(document.getElementById("government").value);
     }
     msg += "\nTotal: $" + total.toFixed(2);
