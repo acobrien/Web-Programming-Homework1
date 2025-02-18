@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Example</title>
+    <style>
+        /*---
+        Should not have to modify these 4 style definitions
+        ---*/
+        * { box-sizing: border-box; }
+        body { font-family:Verdana, serif; }
+        h1 { margin: 20px; }
+        div { padding:0; margin: 0; border-style: solid; }
+        /*---
+        Add rules to any of the selectors below to achieve the displays (viewport size
+        dependent)
+        specified on the homework document
+        ---*/
+        .divA {
+            background-color:#c1d1ef;
+        }
+        .divB {
+            background-color:#c1d1ef;
+        }
+        .divC {
+            background-color:#99bb98;
+        }
+        .divD {
+            background-color:#e3ae4a;
+        }
+        .divE {
+            background-color:#b48c8c;
+        }
+        .divF {
+            background-color:#b48c8c;
+        }
+        @media only screen and (max-width:800px) {
+            .divA {
+            }
+            .divE {
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="divA">
+    <h1>A</h1>
+</div>
+<div class="divB">
+    <h1>B</h1>
+</div>
+<div class="divC">
+    <h1>C</h1>
+</div>
+<div class="divD">
+    <div class="divE">
+        <h1>E</h1>
+    </div>
+    <div class="divF">
+        <h1>F</h1>
+    </div>
+</div>
+</body>
+</html>

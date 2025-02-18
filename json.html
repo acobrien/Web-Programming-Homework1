@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JSON Example</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="companyStyling.css">
+</head>
+<body>
+
+<header id="header"></header>
+<section id="section"></section>
+<button id = "toggle">Toggle Display</button>
+
+<script>
+
+    let isFullDisplay = true;
+
+    $(document).ready(function() {
+        $.getJSON("https://raw.githubusercontent.com/drgap/json_example/main/company.json", function(company) {
+            console.log(company);
+            buildHeader(company);
+            buildMembers(company);
+            $("#toggle").click(function() {
+                if (isFullDisplay) {
+                    $("#section").text("");
+                    buildShortMembers(company);
+                    isFullDisplay = false;
+                }
+                else {
+                    $("#section").text("");
+                    buildMembers(company);
+                    isFullDisplay = true;
+                }
+            });
+        });
+    });
+
+    function buildHeader(company) {
+        const $header = $("#header");
+        let $h1CompanyName = $("<h1></h1>")
+        $h1CompanyName.text(company["companyName"]);
+        $header.append($h1CompanyName);
+
+        let $h3Division = $("<h3></h3>");
+        $h3Division.text(company["division"]);
+        $header.append($h3Division);
+
+        let $h3Head = $("<h3></h3>");
+        $h3Head.text(company["divisionHeadName"]);
+        $header.append($h3Head);
+    }
+
+    function buildMembers(company) {
+        const $section = $("#section");
+        const members = company["members"];
+
+        for (let i = 0; i < members.length; i++) {
+            const $article = $("<article></article>");
+            const $h2 = $("<h2></h2>");
+            const $p = $("<p></p>");
+            const $ul = $("<ul></ul>");
+
+            $h2.text(members[i].name + ", " + members[i].gender);
+            $p.text("Age: " + members[i].age + ", Favorite Fruit: " +
+                members[i].favoriteFruit + ", Contacts:\n");
+
+            const contacts = members[i].contacts;
+            for (let j = 0; j < contacts.length; j++) {
+                const $li = $("<li></li>");
+                $li.text(contacts[j].name + ", " + contacts[j].company);
+                $ul.append($li);
+            }
+
+            $article.append($h2);
+            $article.append($p);
+            $article.append($ul);
+            $section.append($article);
+
+            if (i % 3 === 0) {
+                $article.css("color", "red");
+            }
+            else if (i % 3 === 1) {
+                $article.css("color", "green");
+            }
+            else if (i % 3 === 2) {
+                $article.css("color", "blue");
+            }
+        }
+    }
+
+    function buildShortMembers(company) {
+        const $section = $("#section");
+        const members = company["members"];
+        const $ul = $("<ul></ul>");
+
+        for (let i = 0; i < members.length; i++) {
+            const $li = $("<li></li>");
+            $li.text(members[i].name);
+            $ul.append($li);
+            $section.append($ul);
+        }
+    }
+
+</script>
+</body>
+</html>

@@ -71,11 +71,16 @@
             <label for="receipt">Purchase Details:</label>
             <textarea id="receipt" name="receipt" cols="30" rows="20"></textarea>
         </td>
+        <td>
+            <input type="button" id="toggleImg" name="toggleImg" value="Toggle Leaked SpaceX Code">
+        </td>
+        <td><img src="RealSpacexCode.jpg" alt="rocket code" id="rocketImg" width="310" height="530"></td>
     </tr>
 </table>
 <script>
-    $(document).ready(function () {
-        $("#submit").click(function () {
+    $(document).ready(function() {
+        $("#rocketImg").hide();
+        $("#submit").click(function() {
             let total = 0;
             let msg = "Order\n----------------------";
 
@@ -106,7 +111,7 @@
                 msg += "\n$" + $(extraOptions[0]).val() + " – Rush order";
             }
             if (extraOptions[1].checked) {
-                total += parseFloat($(extraOptions[1].val()));
+                total += parseFloat($(extraOptions[1]).val());
                 msg += "\n$" + $(extraOptions[1]).val() + " – Gift wrap";
             }
 
@@ -131,6 +136,9 @@
             }
             msg += "\nTotal: $" + total.toFixed(2);
             $("#receipt").val(msg);
+        });
+        $("#toggleImg").click(function() {
+            $("#rocketImg").toggle();
         });
     });
 </script>

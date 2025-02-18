@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<boats>
+
+    <boat>
+        <motor>CMB .67</motor>
+        <fuel>Nitro</fuel>
+        <speed>116</speed>
+    </boat>
+
+    <boat>
+        <motor>CMB .91</motor>
+        <fuel>Nitro</fuel>
+        <speed>Unknown</speed>
+    </boat>
+
+    <boat>
+        <motor>Unknown</motor>
+        <fuel>Electric</fuel>
+        <speed>55</speed>
+    </boat>
+
+</boats>
