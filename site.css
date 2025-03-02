@@ -10,16 +10,16 @@ body {
     background-color: indianred;
     margin: 0.5rem;
     padding: 0.5rem;
-    display: ;
-    grid-template-columns: ;
+    display: grid; /**/
+    grid-template-columns: 1fr 2fr 1fr; /**/
 }
 
 .flex-container-1, .flex-container-2 {
     background-color: rgb(129, 85, 230);
     margin: 0.125rem;
     padding: 0.25rem;
-    display: ;
-    flex-direction: ;
+    display: flex; /**/
+    flex-direction: column; /**/
 }
 
 .flex-container-1>div, .flex-container-2>div {
@@ -27,7 +27,7 @@ body {
     margin: 0.25rem;
     padding: 2rem;
     font-size: 2rem;
-    text-align: ;
+    text-align: center; /**/
 }
 
 .grid-item-h {
@@ -35,9 +35,9 @@ body {
     margin: 0.25rem;
     padding: 2rem;
     font-size: 2.5rem;
-    grid-column-start: ;
-    grid-column-end: ;
-    text-align: ;
+    grid-column-start: 1; /**/
+    grid-column-end: 4; /**/
+    text-align: center; /**/
 }
 
 .grid-item-m {
@@ -45,7 +45,7 @@ body {
     margin: 0.25rem;
     padding: 2rem;
     font-size: 2rem;
-    text-align: ;
+    text-align: center; /**/
 }
 
 @media only screen and (max-width: 800px) {
@@ -53,14 +53,14 @@ body {
         background-color: lightgrey;
     }
     .grid-container {
-        grid-template-columns: ;
+        grid-template-columns: 1fr; /**/
     }
     .flex-container-1, .flex-container-2 {
-        justify-content: ;
-        flex-direction: ;
+        justify-content: space-evenly; /**/
+        flex-direction: row; /**/
     }
     .grid-item-h {
-        grid-column-start: ;
-        grid-column-end: ;
+        grid-column-start: 1; /**/
+        grid-column-end: 2; /**/
     }
 }
