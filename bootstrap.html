@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>i hate jquery</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+<h1>Book Order Form</h1>
+<table>
+    <tr>
+        <td>
+            <label for="books"><b>
+                Select Books<br>
+                and/or Supply<br>
+                Book title and<br>
+                price<br></b></label>
+        </td>
+        <td><form>
+            <select id="books" name="books" size="4" multiple>
+                <option value="20.00">Walden Pond</option>
+                <option value="15.00">Zen and the Art...</option>
+                <option value="8.00">The Razor's Edge</option>
+                <option value="15.00">The Poisonwood Bible</option>
+                <option value="10.00">Withering Heights</option>
+            </select>
+        </form></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td><form>
+            <label for="userBook">Book</label>
+            <input type="text" id="userBook" name="userBook">
+            <label for="userBookPrice">Price</label>
+            <input type="text" id="userBookPrice" name="userBookPrice">
+        </form></td>
+    </tr>
+    <tr>
+        <td><b>Options</b></td>
+        <td><form>
+            <input type="checkbox" id="rushOrder" name="extraOption" value="10.00">
+            <label for="rushOrder">Rush Order</label>
+            <input type="checkbox" id="giftWrap" name="extraOption" value="5.00">
+            <label for="giftWrap">Gift Wrap</label>
+        </form></td>
+    </tr>
+    <tr>
+        <td><b>Customer Type</b></td>
+        <td><form>
+            <input type="radio" id="general" name="customerType" value="0.00" checked>
+            <label for="general">General</label>
+            <input type="radio" id="government" name="customerType" value="0.10">
+            <label for="government">Government</label>
+        </form></td>
+    </tr>
+    <tr>
+        <td><b><label for="destinations">Ship To</label></b></td>
+        <td><form>
+            <select name="destinations" id="destinations">
+                <option value="5.00">NY</option>
+                <option value="7.00">CA</option>
+                <option value="3.00">SC</option>
+            </select>
+        </form></td>
+    </tr>
+    <tr>
+        <td>
+            <input type="button" id="submit" name="submit" value="Purchase">
+        </td>
+        <td>
+            <label for="receipt">Purchase Details:</label>
+            <textarea id="receipt" name="receipt" cols="30" rows="20"></textarea>
+        </td>
+        <td>
+            <input type="button" id="toggleImg" name="toggleImg" value="Toggle Leaked SpaceX Code">
+        </td>
+        <td><img src="RealSpacexCode.jpg" alt="rocket code" id="rocketImg" width="310" height="530"></td>
+    </tr>
+</table>
+<script>
+    $(document).ready(function() {
+        $("#rocketImg").hide();
+        $("#submit").click(function() {
+            let total = 0;
+            let msg = "Order\n----------------------";
+
+            $("#books option:selected").each(function () {
+                total += parseFloat($(this).val());
+                msg += "\n$" + $(this).val() + " – " + $(this).text();
+            });
+
+            let userBook = $("#userBook");
+            let userBookPrice = $("#userBookPrice");
+            if ($(userBook).val() !== "" && $(userBookPrice).val() !== "") {
+                total += parseFloat($(userBookPrice).val());
+                msg += "\n$" + (parseFloat($(userBookPrice).val())).toFixed(2) + " – " + $(userBook).val() + " (user specified)";
+            }
+
+            let customerType = $("input[name='customerType']:checked");
+            let isGovernment = parseFloat($(customerType).val()) === 0.1;
+            if (isGovernment) {
+                msg += "\nGovernment Customer";
+            }
+            else {
+                msg += "\nGeneral Customer";
+            }
+
+            let extraOptions = $("input[name='extraOption']");
+            if (extraOptions[0].checked) {
+                total += parseFloat($(extraOptions[0]).val());
+                msg += "\n$" + $(extraOptions[0]).val() + " – Rush order";
+            }
+            if (extraOptions[1].checked) {
+                total += parseFloat($(extraOptions[1]).val());
+                msg += "\n$" + $(extraOptions[1]).val() + " – Gift wrap";
+            }
+
+            let destination = $("#destinations option:selected");
+            total += parseFloat($(destination).val());
+            if ($(destination).text() === "NY") {
+                msg += "\n$5.00 – Ship to NY";
+            }
+            else if ($(destination).text() === "CA") {
+                msg += "\n$7.00 – Ship to CA";
+            }
+            else if ($(destination).text() === "SC") {
+                msg += "\n$3.00 – Ship to SC";
+            }
+
+            msg += "\n----------------------";
+            if (isGovernment) {
+                let governmentDiscount = parseFloat($("#government").val());
+                msg += "\nSub Total: $" + total.toFixed(2);
+                msg += "\nDiscount (10%): $" + (total * governmentDiscount).toFixed(2);
+                total *= 1.0 - governmentDiscount;
+            }
+            msg += "\nTotal: $" + total.toFixed(2);
+            $("#receipt").val(msg);
+        });
+        $("#toggleImg").click(function() {
+            $("#rocketImg").toggle();
+        });
+    });
+</script>
+</body>
+</html>
