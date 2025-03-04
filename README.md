@@ -1,1 +1,1 @@
-Not super challenging/involved, but I learned a lot. Problem 9 is probably the most interesting.
+Not super challenging/involved, but I learned a lot. Problems 6 (json) and 9 (bootstrap) are probably the best showcases.
